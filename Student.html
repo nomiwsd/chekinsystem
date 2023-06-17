@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <title>Document</title>
+  </head>
+
+  <body class="studentpage">
+    <div class="hero-image"></div>
+    <div class="main-wrapper">
+      <header class="header">
+        <img class="logo" src="./assets/logo-dark.svg" alt="logo" />
+        <button class="header-button">Get Started</button>
+      </header>
+      <main class="maindiv">
+        <div class="course-cards">
+          <div class="course-card">
+            <div class="imgflex">
+              <img
+                class="course-card__logo"
+                src="./assets/staff.png"
+                alt="icon-animation"
+              />
+            </div>
+            <h2 class="course-card__heading">Students</h2>
+            <div class="Alldropdowns">
+              <label for="firstdropdown" class="selectlabel"
+                >Choose Year Group:</label
+              >
+              <select id="firstDropdown">
+                <option value="">--Select an option--</option>
+                <option value="option1">Year 7</option>
+                <option value="option2">Year 8</option>
+                <option value="option3">Year 9</option>
+                <option value="option4">Year 10</option>
+                <option value="option5">Year 11</option>
+              </select>
+              <label for="secondDropdown" class="selectlabel"
+                >Choose Form ID:</label
+              >
+              <select id="secondDropdown" disabled>
+                <option value="">--Select an option--</option>
+              </select>
+              <label for="thirdDropdown" class="selectlabel"
+                >Choose Student Name:</label
+              >
+              <select id="thirdDropdown" disabled>
+                <option value="">--Select an option--</option>
+                <option value="option1">Kassi Langthorne</option>
+                <option value="option2">Margie Royan</option>
+                <option value="option3">Ramsay Arnholdt</option>
+                <option value="option4">Sheilah Restieaux</option>
+                <option value="option5">Catlaina Poyntz</option>
+                <option value="option6">Meredith Franseco</option>
+                <option value="option7">Imogene Mirams</option>
+                <option value="option8">Cindi Driffe</option>
+                <option value="option9">Enrica Gudyer</option>
+                <option value="option10">Shari Aldcorne</option>
+                <option value="option11">Hobard Endrighi</option>
+                <option value="option12">Emilio Huygens</option>
+                <option value="option13">Hermie Harler</option>
+                <option value="option14">Haleigh Lince</option>
+                <option value="option16">Dorine Rosie</option>
+                <option value="option17">Rosemarie Thonaso</option>
+                <option value="option18">Sven Logie</option>
+                <option value="option19">Janis Pavett</option>
+                <option value="option20">Debbi Trass</option>
+                <option value="option21">Giff Dudney</option>
+                <option value="option22">Stern Bertrand</option>
+                <option value="option23">Hamnet Ridde</option>
+                <option value="option24">Gian Lefeaver</option>
+                <option value="option25">Flem felip</option>
+                <option value="option26">Rianon Brodie</option>
+                <option value="option27">Derby Grzelak</option>
+                <option value="option28">Muhammad Gartshore</option>
+                <option value="option29">Ivar McCarrick</option>
+                <option value="option30">Matthaeus McPeice</option>
+              </select>
+            </div>
+            <section class="modal hidden">
+              <div class="flex">
+                <p class="modaltext">Click the Button to Confirm</p>
+
+                <button class="btn-close">⨉</button>
+              </div>
+              <div class="justifycontent">
+                <button class="btn" id="button1">
+                  Confirm
+                </button>
+                <div id="loader-container">
+                  <div class="loader"></div>
+                  <div class="success">
+                   <img src="./assets/checked.png" alt="">
+                    <strong class="imgtext">You are Successfully Check In</strong>
+                  </div>
+                </div>
+                <button class="cancelbtn">
+                  <a href="Index.html">Cancel</a>
+                </button>
+              </div>
+            </section>
+
+            <div class="overlay hidden"></div>
+            <button class="btn-open course-card__link">Check In</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      const button = document.getElementById("button1");
+      button.addEventListener("click", () => {
+        function showLoader() {
+          document.getElementById("loader-container").style.display = "block";
+        }
+
+        function hideLoader() {
+          document.getElementById("loader-container").style.display = "none";
+        }
+
+        function showSuccess() {
+          document.querySelector(".loader").style.display = "none";
+          document.querySelector(".success").style.display = "flex";
+        }
+        
+        // Call showLoader() before your long-running task
+        showLoader();
+
+        // Call hideLoader() and showSuccess() after your long-running task has completed successfully
+        setTimeout(function () {
+        //   hideLoader();
+          showSuccess();
+          window.location.href='Index.html';
+        }, 3000);
+         // Change this to the duration of your long-running task in milliseconds
+      });
+      // Loader
+
+      //   dropdown
+      const firstDropdown = document.getElementById("firstDropdown");
+      const secondDropdown = document.getElementById("secondDropdown");
+      const thirdDropdown = document.getElementById("thirdDropdown");
+
+      firstDropdown.addEventListener("change", function () {
+        secondDropdown.disabled = false;
+      });
+
+      secondDropdown.addEventListener("change", function () {
+        thirdDropdown.disabled = false;
+      });
+
+      const optionsForOption1 = [
+        { text: "TG", value: "option1-1" },
+        { text: "AD", value: "option1-2" },
+        { text: "MS", value: "option1-3" },
+        { text: "AH", value: "option1-4" },
+      ];
+      const optionsForOption2 = [
+        { text: "CB", value: "option2-1" },
+        { text: "RK", value: "option2-2" },
+        { text: "CW", value: "option2-3" },
+        { text: "MB", value: "option2-4" },
+      ];
+      const optionsForOption3 = [
+        { text: "YG", value: "option3-1" },
+        { text: "RK", value: "option3-2" },
+        { text: "WI", value: "option3-3" },
+        { text: "JOD", value: "option3-4" },
+      ];
+      const optionsForOption4 = [
+        { text: "ML", value: "option4-1" },
+        { text: "LG", value: "option4-2" },
+        { text: "PB", value: "option4-3" },
+        { text: "HN", value: "option4-4" },
+      ];
+      const optionsForOption5 = [
+        { text: "PH", value: "option5-1" },
+        { text: "OJ", value: "option5-2" },
+        { text: "US", value: "option5-3" },
+        { text: "WR", value: "option5-4" },
+      ];
+
+      // Add an event listener to the first dropdown
+      firstDropdown.addEventListener("change", () => {
+        // Get the selected option in the first dropdown
+        const selectedOption = firstDropdown.value;
+
+        // Update the options in the second dropdown based on the selected option
+        switch (selectedOption) {
+          case "option1":
+            updateOptions(optionsForOption1);
+            break;
+          case "option2":
+            updateOptions(optionsForOption2);
+            break;
+          case "option3":
+            updateOptions(optionsForOption3);
+            break;
+          case "option4":
+            updateOptions(optionsForOption4);
+            break;
+          case "option5":
+            updateOptions(optionsForOption5);
+            break;
+          default:
+            break;
+        }
+      });
+
+      // Function to update the options in the second dropdown
+      function updateOptions(options) {
+        // Remove all existing options from the second dropdown
+        secondDropdown.innerHTML = "";
+
+        // Add the new options to the second dropdown
+        options.forEach((option) => {
+          const newOption = document.createElement("option");
+          newOption.text = option.text;
+          newOption.value = option.value;
+          secondDropdown.add(newOption);
+        });
+      }
+
+      //   Modal
+      const modal = document.querySelector(".modal");
+      const overlay = document.querySelector(".overlay");
+      const openModalBtn = document.querySelector(".btn-open");
+      const closeModalBtn = document.querySelector(".btn-close");
+
+      // close modal function
+      const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      };
+
+      // close the modal when the close button and overlay is clicked
+      closeModalBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
+
+      // close modal when the Esc key is pressed
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      // open modal function
+      const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+      };
+      // open modal event
+      openModalBtn.addEventListener("click", openModal);
+
+      let index = 1;
+
+      const on = (listener, query, fn) => {
+        document.querySelectorAll(query).forEach((item) => {
+          item.addEventListener(listener, (el) => {
+            fn(el);
+          });
+        });
+      };
+
+      on("click", ".selectBtn", (item) => {
+        const next = item.target.nextElementSibling;
+        next.classList.toggle("toggle");
+        next.style.zIndex = index++;
+      });
+      on("click", ".option", (item) => {
+        item.target.parentElement.classList.remove("toggle");
+
+        const parent = item.target.closest(".select").children[0];
+        parent.setAttribute("data-type", item.target.getAttribute("data-type"));
+        parent.innerText = item.target.innerText;
+      });
+    </script>
+  </body>
+</html>

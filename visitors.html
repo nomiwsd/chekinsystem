@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      .course-card {
+        width: 100%;
+        height: 80vh;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+
+  <body class="studentpage">
+    <div class="hero-image"></div>
+    <div class="main-wrapper">
+      <header class="header">
+        <img class="logo" src="./assets/logo-dark.svg" alt="logo" />
+        <button class="header-button">Get Started</button>
+      </header>
+      <main class="maindiv">
+        <div class="course-cards">
+          <div class="course-card">
+            <div class="imgflex">
+              <img
+                class="course-card__logo"
+                src="./assets/visitors.png"
+                alt="icon-animation"
+              />
+            </div>
+            <h2 class="course-card__heading">Visitors</h2>
+            <div class="Alldropdowns">
+              <label for="namevisitor" class="selectlabel"
+                >Enter Your Name:</label
+              >
+              <input type="text" name="namevisitor" />
+              <label for="secondDropdown" class="selectlabel"
+                >Choose Staff Name:</label
+              >
+              <select id="firstDropdown">
+                <option value="">--Select an option--</option>
+                <option value="option1">Dr Peria Fearne</option>
+                <option value="option2">Ms T Gibb</option>
+                <option value="option3">Mr V Zotto</option>
+                <option value="option4">Ms A Dobble</option>
+                <option value="option5">Mr H Carette</option>
+                <option value="option6">Ms D Wildber</option>
+                <option value="option7">Ms B McGreal</option>
+                <option value="option8">Dr M Spridgeon</option>
+                <option value="option9">Mr A Hallbord</option>
+                <option value="option10">Dr C Bermingham</option>
+                <option value="option11">Ms R Krienke</option>
+                <option value="option12">Ms G M'Chirrie</option>
+                <option value="option13">Ms C Waiting</option>
+                <option value="option14">Ms M Bisley</option>
+                <option value="option16">Dr M Sorbie</option>
+                <option value="option17">Mr Y Gude</option>
+                <option value="option18">Mr R Kenyam</option>
+                <option value="option19">Ms W Ivanilov</option>
+                <option value="option20">Ms D Wildber</option>
+                <option value="option21">Dr J O'Dowgaine y</option>
+                <option value="option22">Mr M Levett</option>
+                <option value="option23">Ms W Right</option>
+              </select>
+              <div class="mainflex">
+              <div class="flex-container">
+                <video id="video" width="360" height="360" autoplay></video><canvas id="canvas" class="canvasimg" width="360" height="275"></canvas>  </div>
+                <button id="snap" class="capturebtn">Snap Photo</button>
+              </div>
+              
+          
+            <section class="modal hidden">
+              <div class="flex">
+                <p class="modaltext">Click the Button to Confirm</p>
+
+                <button class="btn-close">⨉</button>
+              </div>
+              <div class="justifycontent">
+                <button class="btn" id="button1">Confirm</button>
+                <div id="loader-container">
+                  <div class="loader"></div>
+                  <div class="success">
+                    <img src="./assets/checked.png" alt="" />
+                    <strong class="imgtext"
+                      >You are Successfully Check In</strong
+                    >
+                  </div>
+                </div>
+                <button class="cancelbtn">
+                  <a href="Index.html">Cancel</a>
+                </button>
+              </div>
+            </section>
+
+            <div class="overlay hidden"></div>
+            <button class="btn-open course-card__link">Check In</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+          });
+      }
+      // Camera tool
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+      var video = document.getElementById("video");
+
+      // Trigger photo take
+      document.getElementById("snap").addEventListener("click", function () {
+        context.drawImage(video, 0, 0, 360,275);
+      });
+      // loader
+      const button = document.getElementById("button1");
+      button.addEventListener("click", () => {
+        function showLoader() {
+          document.getElementById("loader-container").style.display = "block";
+        }
+
+        function hideLoader() {
+          document.getElementById("loader-container").style.display = "none";
+        }
+
+        function showSuccess() {
+          document.querySelector(".loader").style.display = "none";
+          document.querySelector(".success").style.display = "flex";
+        }
+        
+
+        // Call showLoader() before your long-running task
+        showLoader();
+
+        // Call hideLoader() and showSuccess() after your long-running task has completed successfully
+        setTimeout(function () {
+        showSuccess();
+        window.location.href='Index.html';
+        }, 3000);
+      
+        // Change this to the duration of your long-running task in milliseconds
+      });
+      // Loader
+
+      //   dropdown
+
+      //   Modal
+      const modal = document.querySelector(".modal");
+      const overlay = document.querySelector(".overlay");
+      const openModalBtn = document.querySelector(".btn-open");
+      const closeModalBtn = document.querySelector(".btn-close");
+
+      // close modal function
+      const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      };
+
+      // close the modal when the close button and overlay is clicked
+      closeModalBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
+
+      // close modal when the Esc key is pressed
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      // open modal function
+      const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+      };
+      // open modal event
+      openModalBtn.addEventListener("click", openModal);
+
+      let index = 1;
+
+      const on = (listener, query, fn) => {
+        document.querySelectorAll(query).forEach((item) => {
+          item.addEventListener(listener, (el) => {
+            fn(el);
+          });
+        });
+      };
+
+      on("click", ".selectBtn", (item) => {
+        const next = item.target.nextElementSibling;
+        next.classList.toggle("toggle");
+        next.style.zIndex = index++;
+      });
+      on("click", ".option", (item) => {
+        item.target.parentElement.classList.remove("toggle");
+
+        const parent = item.target.closest(".select").children[0];
+        parent.setAttribute("data-type", item.target.getAttribute("data-type"));
+        parent.innerText = item.target.innerText;
+      });
+    </script>
+  </body>
+</html>

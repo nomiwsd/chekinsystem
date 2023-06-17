@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="hero-image"></div>
+    <div class="main-wrapper">
+      <header class="header">
+        <img class="logo" src="./assets/logo-dark.svg" alt="logo" />
+        <button class="header-button">Get Started</button>
+      </header>
+      <main class="maindiv">
+        <div class="course-cards">
+          <div class="course-card">
+            <div class="imgflex">
+              <img
+                class="course-card__logo"
+                src="./assets/staff.png"
+                alt="icon-animation"
+              />
+            </div>
+            <h2 class="course-card__heading">Staff</h2>
+            <label for="firstdropdown" class="selectlabel"
+              >Choose Staff Name:</label
+            >
+            <div class="select">
+              <div class="selectBtn" data-type="firstOption">Select Option</div>
+              <div class="selectDropdown">
+                <div class="option" data-type="firstOption">Select Option</div>
+                <div class="option" data-type="SecondOption">
+                  Dr Peria Fearne
+                </div>
+                <div class="option" data-type="thirdOption">Ms T Gibb</div>
+                <div class="option" data-type="fourOption">Mr V Zotto</div>
+                <div class="option" data-type="fiveOption">Ms A Dobble</div>
+                <div class="option" data-type="SixOption">Mr H Carette</div>
+                <div class="option" data-type="SevenOption">Ms B McGreal</div>
+                <div class="option" data-type="EightOption">Dr M Spridgeon</div>
+                <div class="option" data-type="NineOption">Mr A Hallbord</div>
+                <div class="option" data-type="TenOption">Dr C Bermingham</div>
+                <div class="option" data-type="ElevenOption">Ms R Krienke</div>
+                <div class="option" data-type="TwelveOption">
+                  Ms G M'Chirrie
+                </div>
+                <div class="option" data-type="ThirteenOption">
+                  Ms C Waiting
+                </div>
+                <div class="option" data-type="FourteenOption">Ms M Bisley</div>
+                <div class="option" data-type="FifteenOption">Dr M Sorbie</div>
+                <div class="option" data-type="SixteenOption">Mr Y Gude</div>
+                <div class="option" data-type="SeventeenOption">
+                  Mr R Kenyam
+                </div>
+                <div class="option" data-type="EighteenOption">
+                  Ms W Ivanilov
+                </div>
+              </div>
+            </div>
+            <section class="modal hidden">
+              <div class="flex">
+                <p class="modaltext">Click the Button to Confirm</p>
+
+                <button class="btn-close">⨉</button>
+              </div>
+              <div class="justifycontent">
+                <div id="loader-container">
+                  <div class="loader"></div>
+                  <div class="success">
+                   <img src="./assets/checked.png" alt="">
+                    <strong class="imgtext">You are Successfully Check In</strong>
+                  </div>
+                </div>
+                <button class="btn" id="button1">Confirm</button>
+                <button class="cancelbtn">
+                  <a href="Index.html">Cancel</a>
+                </button>
+              </div>
+            </section>
+
+            <div class="overlay hidden"></div>
+            <button class="btn-open course-card__link">Check In</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      // loader
+      const button = document.getElementById("button1");
+      button.addEventListener("click", () => {
+        function showLoader() {
+          document.getElementById("loader-container").style.display = "block";
+        }
+
+        function hideLoader() {
+          document.getElementById("loader-container").style.display = "none";
+        }
+
+        function showSuccess() {
+          document.querySelector(".loader").style.display = "none";
+          document.querySelector(".success").style.display = "flex";
+        }
+
+        // Call showLoader() before your long-running task
+        showLoader();
+
+        // Call hideLoader() and showSuccess() after your long-running task has completed successfully
+        setTimeout(function () {
+          //   hideLoader();
+          showSuccess();
+          window.location.href = "Index.html";
+        }, 3000);
+        // Change this to the duration of your long-running task in milliseconds
+      });
+      const modal = document.querySelector(".modal");
+      const overlay = document.querySelector(".overlay");
+      const openModalBtn = document.querySelector(".btn-open");
+      const closeModalBtn = document.querySelector(".btn-close");
+
+      // close modal function
+      const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      };
+
+      // close the modal when the close button and overlay is clicked
+      closeModalBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
+
+      // close modal when the Esc key is pressed
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      // open modal function
+      const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+      };
+      // open modal event
+      openModalBtn.addEventListener("click", openModal);
+
+      let index = 1;
+
+      const on = (listener, query, fn) => {
+        document.querySelectorAll(query).forEach((item) => {
+          item.addEventListener(listener, (el) => {
+            fn(el);
+          });
+        });
+      };
+
+      on("click", ".selectBtn", (item) => {
+        const next = item.target.nextElementSibling;
+        next.classList.toggle("toggle");
+        next.style.zIndex = index++;
+      });
+      on("click", ".option", (item) => {
+        item.target.parentElement.classList.remove("toggle");
+
+        const parent = item.target.closest(".select").children[0];
+        parent.setAttribute("data-type", item.target.getAttribute("data-type"));
+        parent.innerText = item.target.innerText;
+      });
+    </script>
+  </body>
+</html>
